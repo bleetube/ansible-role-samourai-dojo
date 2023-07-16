@@ -7,6 +7,7 @@
   register: git_repository
   tags: upgrade
 
+# install/install-scripts.sh
 - name: Dojo | Check whether the database has been initialized
   community.mysql.mysql_info:
     filter:
@@ -24,3 +25,9 @@
     login_user: "{{ samourai_dojo_config.MYSQL_USER }}"
     login_password: "{{ samourai_dojo_config.MYSQL_PASSWORD }}"
   when: databases.databases.samourai.size == 0
+
+- name: Dojo | Initialize the maintenace tool
+  ansible.builtin.copy:
+    remote_src: yes
+    src: "~/src/samourai-dojo/static/admin/conf/index-{{ samourai_dojo_config.COMMON_BTC_NETWORK }}.js"
+    dest: ~/src/samourai-dojo/static/admin/conf/index.js

@@ -76,7 +76,7 @@ Configure `samourai_dojo_version` and rerun the playbook.
 ansible-playbook playbooks/samourai.yml --tags dojo
 ```
 
-Merge any [meaningful updates](https://code.samourai.io/dojo/samourai-dojo/-/tree/master/docker/my-dojo/node) to relevant Node.js environment variables.
+Mind any changes specifically to Node.js [environment variables](https://code.samourai.io/dojo/samourai-dojo/-/tree/master/docker/my-dojo/node), and the Dojo [install scripts](https://code.samourai.io/dojo/samourai-dojo/-/tree/master/docker/my-dojo/install) (or wait for this role to document any extra upgrade steps).
 
 ## Monitoring
 
@@ -84,7 +84,7 @@ See [dojo-exporter](https://github.com/bleetube/dojo_exporter)
 
 ## Troubleshooting
 
-```
+```bash
 podman logs --follow dojo
 podman inspect dojo | jq .[].Config.Env
 ```

@@ -17,6 +17,12 @@
 - ansible.builtin.debug:
     var: podman_image_output
 
+- name: Dojo | Create volumes
+  containers.podman.podman_volume:
+    state: present
+    name: data-tor
+    recreate: no
+
 - name: Dojo | Create container
   register: podman_container_output
   containers.podman.podman_container:
@@ -28,6 +34,8 @@
     name: dojo
     env: "{{ samourai_dojo_config }}"
     ports: "{{ samourai_dojo_ports }}"
+    volume:
+      - data-tor:/var/lib/tor
     command: /home/node/app/restart.sh
 #   command: "/home/node/app/wait-for-it.sh host.containers.internal:3306 --timeout=720 --strict -- /home/node/app/restart.sh"
 

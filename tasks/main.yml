@@ -1,0 +1,27 @@
+---
+- name: Assert that we are not logged in as root
+  assert:
+    that:
+      - ansible_user_id != 'root'
+    fail_msg: "Podman containers are rootless, so please do not run this role as root."
+
+- name: Dojo | Assert all secrets have been defined.
+  ansible.builtin.assert:
+    that:
+      - item is defined
+      - item != ''
+    fail_msg: "FAILED: Secrets are not configured."
+    quiet: true
+  no_log: true
+  loop:
+    - "{{ samourai_dojo_onion_address }}"
+    - "{{ samourai_dojo_config.NODE_API_KEY }}"
+    - "{{ samourai_dojo_config.NODE_ADMIN_KEY }}"
+    - "{{ samourai_dojo_config.NODE_JWT_SECRET }}"
+    - "{{ samourai_dojo_config.BITCOIND_RPC_PASSWORD }}"
+    - "{{ samourai_dojo_config.MYSQL_PASSWORD }}"
+  tags: env
+
+- import_tasks: setup.yml
+- import_tasks: podman.yml
+- import_tasks: systemd.yml

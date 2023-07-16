@@ -1,0 +1,26 @@
+---
+- name: Dojo | Clone repository
+  ansible.builtin.git:
+    repo: 'https://code.samourai.io/dojo/samourai-dojo.git'
+    dest: ~/src/samourai-dojo
+    version: "{{ samourai_dojo_version }}"
+  register: git_repository
+  tags: upgrade
+
+- name: Dojo | Check whether the database has been initialized
+  community.mysql.mysql_info:
+    filter:
+      - databases
+    return_empty_dbs: true
+    login_user: "{{ samourai_dojo_config.MYSQL_USER }}"
+    login_password: "{{ samourai_dojo_config.MYSQL_PASSWORD }}"
+  register: databases
+
+- name: Dojo | Initialize database
+  community.mysql.mysql_db:
+    name: samourai
+    state: import
+    target: ~/src/samourai-dojo/db-scripts/1_db.sql.tpl
+    login_user: "{{ samourai_dojo_config.MYSQL_USER }}"
+    login_password: "{{ samourai_dojo_config.MYSQL_PASSWORD }}"
+  when: databases.databases.samourai.size == 0

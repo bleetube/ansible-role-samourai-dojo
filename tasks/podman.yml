@@ -1,0 +1,35 @@
+---
+# https://code.samourai.io/dojo/samourai-dojo/-/blob/develop/docker/my-dojo/docker-compose.yaml
+- name: Dojo | Build image
+  register: podman_image_output
+  containers.podman.podman_image:
+    name: samourai-dojo
+    path: ~/src/samourai-dojo
+    tag: "{{ samourai_dojo_version }}"
+    validate_certs: true
+    pull: false
+    state: build
+    build:
+#     format: oci
+      file: ~/src/samourai-dojo/docker/my-dojo/node/Dockerfile
+      extra_args: "--build-arg TOR_LINUX_GID=1107"
+
+- ansible.builtin.debug:
+    var: podman_image_output
+
+- name: Dojo | Create container
+  register: podman_container_output
+  containers.podman.podman_container:
+    debug: no 
+    image: "samourai-dojo:{{ samourai_dojo_version }}"
+    image_strict: yes
+    recreate: yes
+    state: present
+    name: dojo
+    env: "{{ samourai_dojo_config }}"
+    ports: "{{ samourai_dojo_ports }}"
+    command: /home/node/app/restart.sh
+#   command: "/home/node/app/wait-for-it.sh host.containers.internal:3306 --timeout=720 --strict -- /home/node/app/restart.sh"
+
+- ansible.builtin.debug:
+    var: podman_container_output

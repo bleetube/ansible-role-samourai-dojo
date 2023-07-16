@@ -25,8 +25,8 @@ samourai_dojo_config:
   # ~/src/samourai-dojo/docker/my-dojo/conf/docker-common.conf.tpl
   COMMON_BTC_NETWORK: mainnet
   # ~/src/samourai-dojo/docker/my-dojo/conf/docker-node.conf.tpl
-  NODE_API_KEY: "{{ lookup('ansible.builtin.env', 'SAMOURAI_DOJO_API') }}"
-  NODE_ADMIN_KEY: "{{ lookup('ansible.builtin.env', 'SAMOURAI_DOJO_ADMIN') }}"
+  NODE_API_KEY: "{{ lookup('ansible.builtin.env', 'SAMOURAI_DOJO_API') }}"      # wallet
+  NODE_ADMIN_KEY: "{{ lookup('ansible.builtin.env', 'SAMOURAI_DOJO_ADMIN') }}"  # admin and dojo_exporter
   NODE_JWT_SECRET: "{{ lookup('ansible.builtin.env', 'SAMOURAI_DOJO_JWT') }}"
   NODE_ACTIVE_INDEXER: local_indexer
   NODE_FEE_TYPE: ECONOMICAL

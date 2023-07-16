@@ -87,6 +87,7 @@ See [dojo-exporter](https://github.com/bleetube/dojo_exporter)
 ```bash
 podman logs --follow dojo
 podman inspect dojo | jq .[].Config.Env
+ngrep -d lo port 80 -W byline
 ```
 
 ## Resources

@@ -35,7 +35,7 @@ Then source them into your local environment.
 See the [defaults](defaults/main.yml) for the role.
 
 ```yaml
-samourai_dojo_version: v1.20.0
+samourai_dojo_version: "1.20.0"
 samourai_dojo_onion_address: "{{ lookup('ansible.builtin.env', 'SAMOURAI_DOJO_ONION') }}"
 samourai_dojo_onion_port: 80
 ```

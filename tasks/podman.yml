@@ -5,7 +5,7 @@
   containers.podman.podman_image:
     name: samourai-dojo
     path: ~/src/samourai-dojo
-    tag: "{{ samourai_dojo_version }}"
+    tag: "v{{ samourai_dojo_version }}"
     validate_certs: true
     pull: false
     state: build
@@ -27,7 +27,7 @@
   register: podman_container_output
   containers.podman.podman_container:
     debug: no 
-    image: "samourai-dojo:{{ samourai_dojo_version }}"
+    image: "samourai-dojo:v{{ samourai_dojo_version }}"
     image_strict: yes
     recreate: yes
     state: present

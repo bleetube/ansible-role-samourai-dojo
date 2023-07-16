@@ -3,7 +3,7 @@
   ansible.builtin.git:
     repo: 'https://code.samourai.io/dojo/samourai-dojo.git'
     dest: ~/src/samourai-dojo
-    version: "{{ samourai_dojo_version }}"
+    version: "v{{ samourai_dojo_version }}"
   register: git_repository
   tags: upgrade
 

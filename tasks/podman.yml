@@ -22,6 +22,7 @@
     state: present
     name: data-tor
     recreate: no
+  when: not onion_services_path.startswith('/')
 
 - name: Dojo | Create container
   register: podman_container_output
@@ -35,7 +36,8 @@
     env: "{{ samourai_dojo_config }}"
     ports: "{{ samourai_dojo_ports }}"
     volume:
-      - data-tor:/var/lib/tor
+      - /var/lib/tor/hsv3dojo/hostname:/var/lib/tor/hsv3dojo/hostname
+#     - "{{ onion_services_path }}:/var/lib/tor"
     command: /home/node/app/restart.sh
 #   command: "/home/node/app/wait-for-it.sh host.containers.internal:3306 --timeout=720 --strict -- /home/node/app/restart.sh"
 

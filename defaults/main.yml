@@ -2,7 +2,7 @@
 samourai_dojo_version: "1.20.0"
 samourai_dojo_onion_address: "{{ lookup('ansible.builtin.env', 'SAMOURAI_DOJO_ONION') | default('_') }}"
 samourai_dojo_onion_port: 80
-
+onion_services_path: data-tor
 #samourai_dojo_https_port: 4480
 samourai_dojo_ws_http_port: 8080
 samourai_dojo_pushtx_http_port: 8081

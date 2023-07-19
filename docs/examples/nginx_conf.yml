@@ -66,7 +66,7 @@
                       - name: Content-Type
                         value: application/json
             - core:
-                server_name: "{{ samourai_dojo_onion_address|default('_') }}"
+                server_name: "{{ samourai_dojo_onion_service|default('_') }}"
                 listen:
                   - address: "127.0.0.1:{{ samourai_dojo_onion_port|default(80) }}"
                 send_timeout: 600s

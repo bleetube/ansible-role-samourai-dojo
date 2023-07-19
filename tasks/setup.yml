@@ -31,3 +31,18 @@
     remote_src: yes
     src: "~/src/samourai-dojo/static/admin/conf/index-{{ samourai_dojo_config.COMMON_BTC_NETWORK }}.js"
     dest: ~/src/samourai-dojo/static/admin/conf/index.js
+
+- block:
+    - name: Dojo | Ensure onoion services directory exists
+      ansible.builtin.file:
+        path: "{{ samourai_dojo_onion_path }}"
+        state: directory
+        mode: '0755'
+
+    - name: Dojo | Write the hostname to a file in the samourai_dojo_onion_path
+      ansible.builtin.lineinfile:
+        path: "{{ samourai_dojo_onion_path }}/hostname"
+        line: "{{ samourai_dojo_onion_service }}"
+        create: yes
+        insertbefore: '^$' # avoid creating leading blank lines on multiple runs
+  when: samourai_dojo_onion_path.startswith('/')

@@ -36,8 +36,9 @@ See the [defaults](defaults/main.yml) for the role.
 
 ```yaml
 samourai_dojo_version: "1.20.0"
-samourai_dojo_onion_address: "{{ lookup('ansible.builtin.env', 'SAMOURAI_DOJO_ONION') }}"
+samourai_dojo_onion_service: "{{ lookup('ansible.builtin.env', 'SAMOURAI_DOJO_ONION') }}"
 samourai_dojo_onion_port: 80
+#onion_services_path: /opt/dojo # a globally readable/writable path where the hsv3 hostname will be copied (optional)
 ```
 
 ## Example Playbook

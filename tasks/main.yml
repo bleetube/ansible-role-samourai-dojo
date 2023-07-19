@@ -14,7 +14,6 @@
     quiet: true
   no_log: true
   loop:
-    - "{{ samourai_dojo_onion_address }}"
     - "{{ samourai_dojo_config.NODE_API_KEY }}"
     - "{{ samourai_dojo_config.NODE_ADMIN_KEY }}"
     - "{{ samourai_dojo_config.NODE_JWT_SECRET }}"

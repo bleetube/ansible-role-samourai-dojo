@@ -1,10 +1,8 @@
 # Ansible Role: samourai-dojo
 
-This Ansible Role builds and installs a single Podman [container](https://github.com/samourai/docker) that runs the Node.js code for Samourai Dojo.
+This Ansible role builds and installs a single Podman [container](https://code.samourai.io/dojo/samourai-dojo/-/blob/master/docker/my-dojo/node/Dockerfile) that runs the Javascript code for [Samourai Dojo](https://docs.samourai.io/dojo/start). It is intended to be composed with separate roles for Podman, mysql, and web proxy. It can be backended by a [nixbitcoin](https://github.com/bleetube/satstack/blob/main/nix/chespin.satstack.net/configuration.nix) node, or any external node with the necessary configuration.
 
-For educational purposes: it is intended to be composed with separate roles for Podman, mysql, and web proxy. Backended by a [nixbitcoin](https://github.com/fort-nix/nix-bitcoin) node. 
-
-For experts only: Usage of this role implies complete personal accountability and you should never reach out to the Samourai team for support regarding it. This project has no relation to Samourai.
+For node experts or developers only: Usage of this role implies complete personal accountability and you should never reach out to the Samourai team for support regarding it. This project has no relation to Samourai.
 
 ## Requirements
 

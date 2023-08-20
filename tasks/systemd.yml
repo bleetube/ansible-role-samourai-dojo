@@ -1,24 +1,14 @@
 ---
-- name: Dojo | Generate systemd unit file for the container(s)
+- name: Generate systemd unit file for the container(s)
   containers.podman.podman_generate_systemd:
     name: dojo
     dest: ~/.config/systemd/user/
     restart_policy: on-failure
-    restart_sec: 60
+    restart_sec: 10
 
-- name: Dojo | Ensure container(s) are enabled in systemd, but stop it now because we wanted to use "recreate" in the podman_container task before this.
-  ansible.builtin.systemd:
-    name: container-dojo
-    scope: user
-    daemon_reload: true
-    state: stopped
-    enabled: true
-
-- name: Dojo | Start the container(s) with systemd, so systemd will know the state of the container(s) moving forward.
+- name: Start the container(s) with systemd, so systemd will know the state of the container(s) moving forward.
   ansible.builtin.systemd:
     name: container-dojo
     scope: user
     state: started
-  register: systemd_result
-  until: systemd_result is succeeded
-  retries: 1
+  failed_when: false

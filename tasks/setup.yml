@@ -1,5 +1,5 @@
 ---
-- name: Dojo | Clone repository
+- name: Clone repository
   ansible.builtin.git:
     repo: 'https://code.samourai.io/dojo/samourai-dojo.git'
     dest: ~/src/samourai-dojo
@@ -8,7 +8,7 @@
   tags: upgrade
 
 # install/install-scripts.sh
-- name: Dojo | Check whether the database has been initialized
+- name: Check whether the database has been initialized
   community.mysql.mysql_info:
     filter:
       - databases
@@ -17,7 +17,7 @@
     login_password: "{{ samourai_dojo_config.MYSQL_PASSWORD }}"
   register: databases
 
-- name: Dojo | Initialize database
+- name: Initialize database
   community.mysql.mysql_db:
     name: samourai
     state: import
@@ -26,20 +26,20 @@
     login_password: "{{ samourai_dojo_config.MYSQL_PASSWORD }}"
   when: databases.databases.samourai.size == 0
 
-- name: Dojo | Initialize the maintenace tool
+- name: Initialize the maintenace tool
   ansible.builtin.copy:
     remote_src: yes
     src: "~/src/samourai-dojo/static/admin/conf/index-{{ samourai_dojo_config.COMMON_BTC_NETWORK }}.js"
     dest: ~/src/samourai-dojo/static/admin/conf/index.js
 
 - block:
-    - name: Dojo | Ensure onoion services directory exists
+    - name: Ensure the onion services directory exists
       ansible.builtin.file:
         path: "{{ samourai_dojo_onion_path }}"
         state: directory
         mode: '0755'
 
-    - name: Dojo | Write the hostname to a file in the samourai_dojo_onion_path
+    - name: Write the hostname to a file in the samourai_dojo_onion_path
       ansible.builtin.lineinfile:
         path: "{{ samourai_dojo_onion_path }}/hostname"
         line: "{{ samourai_dojo_onion_service }}"

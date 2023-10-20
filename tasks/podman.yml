@@ -1,6 +1,6 @@
 ---
 # https://code.samourai.io/dojo/samourai-dojo/-/blob/develop/docker/my-dojo/docker-compose.yaml
-- name: Dojo | Build image
+- name: Build image
   register: podman_image_output
   containers.podman.podman_image:
     name: samourai-dojo
@@ -10,21 +10,20 @@
     pull: false
     state: build
     build:
-#     format: oci
       file: ~/src/samourai-dojo/docker/my-dojo/node/Dockerfile
       extra_args: "--build-arg TOR_LINUX_GID=1107"
 
 - ansible.builtin.debug:
     var: podman_image_output
 
-- name: Dojo | Create volumes
+- name: Create volumes
   containers.podman.podman_volume:
     state: present
     name: "{{ samourai_dojo_onion_path }}"
     recreate: no
   when: not samourai_dojo_onion_path.startswith('/')
 
-- name: Dojo | Create container
+- name: Create container
   register: podman_container_output
   containers.podman.podman_container:
     debug: no 
